@@ -1,3 +1,8 @@
+import gui.GameFrame;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /*
@@ -40,28 +45,42 @@ public class MAX {
 	public void setSpielbrett(ArrayList<ArrayList<Object>> spielbrett) {
 		this.spielbrett = spielbrett;
 	}
-	public void anmeldung() throws Exception {
+	public void anmeldung(GameFrame frame) throws Exception {
 		//Anmeldung der Spieler
 		// erster Spieler wird gezwungen, sich anzumelden (muss so lange eingaben machen, bis er einen String eingibt)
 		// jeder Weitere kann sich anmelden
 		// zum Beenden der Anmeldung wird Enter bei leerer Eingabe gedr?ckt
-		String s;
+		final String[] s = new String[1];
 		int counter=1;
-		IO.write("Anmeldung. Dr?cke Enter zum Beenden der Anmeldungen.\nSpieler sollten unterschiedliche Anfangsbuchstaben haben zur Unterscheidung.\nMindestens ein Spieler muss angemeldet werden" );
+
+		IO.write("Anmeldung. Drücke Enter zum Beenden der Anmeldungen.\nSpieler sollten unterschiedliche Anfangsbuchstaben haben zur Unterscheidung.\nMindestens ein Spieler muss angemeldet werden" );
 		while(true) {
 			//erster Spieler wird gezwungen, sich anzumelden
 			//bricht erst aus Schleife aus, wenn Spieler sich angemeldet hat
-			s=IO.promptAndRead("Spieler "+(counter)+", gib deinen Namen ein");
-			if(s!=null) {
-				spielerArray.add(new Spieler(s,0,0));
+			frame.getInsertLabel().setText("Spieler "+(counter)+", gib deinen Namen ein");
+			int finalCounter = counter;
+			frame.getInsertTextField().addActionListener(e -> {
+                if(frame.getInsertLabel().getText().equals("Spieler "+(finalCounter)+", gib deinen Namen ein"))
+				{
+					s[0] =frame.getInsertTextField().getText();
+				}
+				if(s[0].equals(""))
+				{
+
+				}
+            });
+			//s[0] =IO.promptAndRead("Spieler "+(counter)+", gib deinen Namen ein");
+			if(s[0] !=null) {
+				spielerArray.add(new Spieler(s[0],0,0));
 				counter++;
 				break;
 			}
 		}
-		while((s=IO.promptAndRead("Spieler "+(counter++)+", gib deinen Namen ein")).length()>0) {
+		while(s[0].length()>0) {
+			counter++;
 			//jeder weitere Spieler kann sich anmelden. 
 			//wird beendet, wenn a) kein neuer Name eingegeben wird, oder b) die max. Spieleranzahl von 8 erreicht ist
-			spielerArray.add(new Spieler(s,0,0));
+			spielerArray.add(new Spieler(s[0],0,0));
 			if(spielerArray.size()>=8) {
 				break;
 			}
@@ -279,8 +298,6 @@ public class MAX {
 		//return false gibt an, dass bis jetzt noch kein gewinner gefunden wurde (das spiel l?uft weiter)
 	}
 	public static void main(String[] args) throws Exception {
-		Spieler spieler1=new Spieler("Jannik", 4,3);
-		Spieler spieler2=new Spieler("Katharina",3,4);
 		MAX mySpiel=new MAX();
 		mySpiel.spiele();
 	}
