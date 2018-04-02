@@ -16,7 +16,7 @@ import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
  */
 public class GameSetup implements ActionListener
 {
-    GameFrame frame;
+    private GameFrame frame;
     GameSetup(GameFrame frame){
        this.frame=frame;
     }
@@ -24,6 +24,7 @@ public class GameSetup implements ActionListener
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() instanceof JTextField)
         {
+            //Dieser Teil liest die Parameter des Spielfeldes ein
             JLabel insertLabel = frame.getInsertLabel();
             JTextField insertTextField = frame.getInsertTextField();
             if (insertLabel.getText().equals("Gebe die Laenge des Spielfeldes an")) {
@@ -47,18 +48,18 @@ public class GameSetup implements ActionListener
                     return;
                 }
                 insertTextField.setBackground(Color.WHITE);
-                //setupGame();
                 insertLabel.setText("Gebe den ersten Spielernamen ein");
                 insertTextField.setText("");
             }
             else {
                 System.out.println("Hier sollte er landen");
-                insertPlayers(e);
+                insertPlayers();
             }
             System.out.println("hier ist ende");
         }
     }
-    private void insertPlayers(ActionEvent e) {
+    private void insertPlayers() {
+        //Dieser Teil liest die Spieler ein
         int count;
         String inputtext = frame.getInsertLabel().getText();
         String input = frame.getInsertTextField().getText();
@@ -102,6 +103,7 @@ public class GameSetup implements ActionListener
         frame.getInsertLabel().setText("Gebe den "+(++count)+". Spielernamen ein");
     }
     private void setupGame() {
+        //Erstellt das Spielfeld und synchronisiert erstmals jenes mit den Buttons
         frame.getGamePanel().setLayout(new GridLayout(frame.getLaenge(), frame.getBreite()));
         frame.setFractionbuttons(new JButton[frame.getLaenge()][frame.getBreite()]);
         int buttonWidth=75;
@@ -122,20 +124,28 @@ public class GameSetup implements ActionListener
                 if(o instanceof Spieler)
                 {
                     frame.getFractionbuttons()[i][j]=new JButton(((Spieler) o).name.substring(0,1));
-                    if(((Spieler)o).equals(frame.getSpielerArray().get(0)))
-                        frame.getFractionbuttons()[i][j].setBackground(Color.RED);
-                    else
-                        frame.getFractionbuttons()[i][j].setBackground(Color.WHITE);
+                    //Hier wird der Button mit dem Spieler der am Zug ist im Thread ColorPlayer eingetragen
+                    if(o.equals(frame.getSpielerArray().get(0)))
+                    {
 
+                        if(!frame.getGameMechanics().getColorPlayer().isAlive())
+                        {
+                            frame.getGameMechanics().setColorPlayer(new ColorPlayer());
+                            frame.getGameMechanics().getColorPlayer().start();
+                        }
+                        frame.getGameMechanics().getColorPlayer().setPlayer(frame.getFractionbuttons()[i][j]);
+
+                    }
                 }
+
                 else
-                {
                     frame.getFractionbuttons()[i][j]=new JButton(((Fraction)o).toStringUnified());
-                    frame.getFractionbuttons()[i][j].setBackground(Color.WHITE);
-                }
+
+                frame.getFractionbuttons()[i][j].setBackground(Color.WHITE);
                 frame.getGamePanel().add(frame.getFractionbuttons()[i][j]);
             }
         }
+        //verändert den Frame so, dass die Buttons wie gewollt in der Mitte mit ausreichend Platz liegen und verschiebt den Frame wieder in die Mitte des Bildschirmes
         frame.remove(frame.getGamePanel());
         frame.setSize(frame.getBreite()*buttonWidth+40,frame.getLaenge()*buttonHeight+60);
         frame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2-frame.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2-frame.getHeight()/2);
@@ -143,6 +153,7 @@ public class GameSetup implements ActionListener
         frame.getInputPanel().setBounds(10,frame.getGamePanel().getHeight()+15,frame.getGamePanel().getWidth(),frame.getHeight()-(frame.getGamePanel().getHeight()+60));
         frame.add(frame.getGamePanel());
         frame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        //Falls das Fenster geschlossen wird, zählt dies als Beendung des Spiels
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

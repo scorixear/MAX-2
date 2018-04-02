@@ -50,7 +50,7 @@ public class MAX {
 		// erster Spieler wird gezwungen, sich anzumelden (muss so lange eingaben machen, bis er einen String eingibt)
 		// jeder Weitere kann sich anmelden
 		// zum Beenden der Anmeldung wird Enter bei leerer Eingabe gedr?ckt
-		final String[] s = new String[1];
+		/*final String[] s = new String[1];
 		int counter=1;
 
 		IO.write("Anmeldung. Drücke Enter zum Beenden der Anmeldungen.\nSpieler sollten unterschiedliche Anfangsbuchstaben haben zur Unterscheidung.\nMindestens ein Spieler muss angemeldet werden" );
@@ -89,7 +89,7 @@ public class MAX {
 		IO.write("\nSpieler sind: ");
 		for(Spieler spieler:spielerArray) {
 			IO.write(spieler.getName());
-		}
+		}*/
 	}
 	
 	public MAX() throws Exception {

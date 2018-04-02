@@ -1,9 +1,8 @@
 package gui;
 
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -18,22 +17,20 @@ public class GameMechanic implements KeyListener
    private GameFrame frame;
    private int playerToTurn;
    private Fraction punkteLimit;
-
-    public GameMechanic(GameFrame frame)
+   private ColorPlayer colorPlayer;
+    GameMechanic(GameFrame frame)
     {
         this.frame=frame;
         playerToTurn = 0;
         punkteLimit=new Fraction("10","1");
+        colorPlayer=new ColorPlayer();
     }
-
-    public void setPlayerToTurn(int playerToTurn) {
-        this.playerToTurn = playerToTurn;
+    public ColorPlayer getColorPlayer() {
+        return colorPlayer;
     }
-
-    public int getPlayerToTurn() {
-        return playerToTurn;
+    public void setColorPlayer(ColorPlayer p) {
+        colorPlayer=p;
     }
-
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -47,7 +44,7 @@ public class GameMechanic implements KeyListener
     @Override
     public void keyReleased(KeyEvent e) {
         boolean contain=false;
-        for(Component c:frame.getContentPane().getComponents()) {
+        for(Component c:frame.getContentPane().getComponents()) {                                                       //Überprüft, ob das Spiel bereits gestartet ist
             if(c.equals(frame.getInputPanel()))
             {
                 contain = true;
@@ -56,22 +53,23 @@ public class GameMechanic implements KeyListener
         }
         if(!contain)
         {
-            if ("wasd".contains(e.getKeyChar()+""))
+            if ("wasd".contains(e.getKeyChar()+""))                                                                     //Steuerung über W-A-S-D
             {
-                if(kannBewegen(frame.getSpielerArray().get(playerToTurn),e.getKeyChar()))
+                if(kannBewegen(frame.getSpielerArray().get(playerToTurn),e.getKeyChar()))                               //Spieler kann sich in die gewählte Richtung bewegen?
                 {
                     bewegeSpieler(frame.getSpielerArray().get(playerToTurn),e.getKeyChar());
-                    if(++playerToTurn==frame.getSpielerArray().size())
+                    if(++playerToTurn==frame.getSpielerArray().size())                                                  //Wählt den nächsten Spieler aus
                         playerToTurn=0;
                     updateField();
                     testScore();
+
 
                 }
             }
         }
     }
     private void bewegeSpieler(Spieler spieler, char direction) {
-        //direction: 8--> oben, 2--> unten, 6--> rechts, 4--> links
+        //direction: W--> oben, S--> unten, D--> rechts, A--> links
         //gibt die Anweisung, einen Spieler in eine der vier Himmelsrichtungen zu bewegen
         int x=spieler.getPosX();
         int y=spieler.getPosY();
@@ -86,11 +84,12 @@ public class GameMechanic implements KeyListener
                 break;
         }
     }
+
     private void bewegung(Spieler spieler, int xquell, int yquell, int xziel, int yziel) {
-        // Ausf?hrung der Anweisung, einen Spieler zu bewegen
+        // Ausführung der Anweisung, einen Spieler zu bewegen
         // addiert Zielfeld zum Spieler-Score, bewegt Spieler, und setzt verlassenes Feld auf Null
         Fraction frac=(Fraction) frame.getElementSpielbrett(xziel, yziel);
-        //element an Ziel kann ohne test in Frac gecastet werden, da davor schon getestet wird, ob der Zug g?ltig ist
+        //Element an Ziel kann ohne test in Frac gecastet werden, da davor schon getestet wird, ob der Zug g?ltig ist
         spieler.addiere(frac);
         //Fraction am Ziel wird dem Score des Spielers hinzuaddiert
         frame.setElementSpielbrett(spieler, xziel, yziel);
@@ -103,8 +102,8 @@ public class GameMechanic implements KeyListener
     }
 
     private boolean kannBewegen(Spieler spieler, char direction) {
-        //testet, ob ein vom Spieler ausgehender Zug g?ltig ist
-        // -> ung?ltig, wenn a) Zug ausserhalb des Spielfeldes f?hrt
+        //testet, ob ein vom Spieler ausgehender Zug gültig ist
+        // -> ungültig, wenn a) Zug ausserhalb des Spielfeldes f?hrt
         // oder b) am Ziel bereits ein Spieler steht
         int x=spieler.getPosX();
         int y=spieler.getPosY();
@@ -124,48 +123,76 @@ public class GameMechanic implements KeyListener
         return (obj instanceof Fraction);
         //wenn obj eine Fraction ist: true, wenn Spieler: false
     }
-    public void testScore() {
-        //?berpr?ft den Score der Spieler, ob sie das Limit bereits erreicht haben
-        ArrayList<Spieler>gewinner=new ArrayList<Spieler>();
+
+    private void testScore() {
+        //Überprüft den Score der Spieler, ob sie das Limit bereits erreicht haben
+        ArrayList<Spieler>gewinner= new ArrayList<>();
         //Liste der Gewinner
         for(Spieler sp:frame.getSpielerArray()) {
-            //alle Spieler, die die Punktzahl erreicht haben, werden in der ArrayList gewinner gespeichert
+            //alle Spieler, die die Punktzahl erreicht haben, werden in der ArrayList gewinner gespeichert - normalerweise sollte nur einer gewonnen haben
             if(sp.getScore().compareTo(punkteLimit)>=0) {
                 gewinner.add(sp);
             }
         }
         if(gewinner.size()>0) {
-            //wenn es einen (oder mehrere gewinner gibt), werden diese ausgegeben
+            //wenn es einen (oder mehrere gewinner gibt), wird der Finish-Frame eingeblendet
             frame.dispose();
             new FinishFrame(frame.getSpielerArray(),gewinner);
-
-
-            //return true gibt an, dass das Spiel vorbei ist (ein gewinner gefunden wurde)
         }
-
-        //return false gibt an, dass bis jetzt noch kein gewinner gefunden wurde (das spiel l?uft weiter)
     }
+
     private void updateField(){
+        //Ersetzt die Texte auf den Buttons anhand der spielbrett-ArrayList. Spieler werden durch den ersten Buchstaben des Namens dargestellt
         for(int i=0;i<frame.getFractionbuttons().length;i++)
         {
             for(int j=0;j<frame.getFractionbuttons()[i].length;j++)
             {
                 Object o =frame.getSpielbrett().get(i).get(j);
-                if(o instanceof Spieler)
-                {
-                    frame.getFractionbuttons()[i][j].setText(((Spieler) o).name.substring(0,1));
+                if(o instanceof Spieler) {
+                    frame.getFractionbuttons()[i][j].setText(((Spieler) o).name.substring(0, 1));
                     if(o.equals(frame.getSpielerArray().get(playerToTurn)))
-                        frame.getFractionbuttons()[i][j].setBackground(Color.RED);
-                    else
-                        frame.getFractionbuttons()[i][j].setBackground(Color.WHITE);
+                    {
 
+                        if(!colorPlayer.isAlive())
+                        {
+                            colorPlayer=new ColorPlayer();
+                            colorPlayer.start();
+                        }
+                        colorPlayer.setPlayer(frame.getFractionbuttons()[i][j]);
+
+                    }
                 }
                 else
-                {
                     frame.getFractionbuttons()[i][j].setText(((Fraction)o).toStringUnified());
-                    frame.getFractionbuttons()[i][j].setBackground(Color.WHITE);
-                }
+                frame.getFractionbuttons()[i][j].setBackground(Color.WHITE);
             }
         }
     }
+}
+class ColorPlayer extends Thread {
+    private JButton player;
+
+    @Override
+    public void run(){
+        boolean running=true;
+        float h1 =0.0F;
+        while(running)
+        {
+            if(player!=null)
+            {
+                player.setBackground(Color.getHSBColor(h1,1,1));
+                h1=(h1>1.0F)?0.0F:h1+0.01F;
+            }
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                running=false;
+            }
+        }
+    }
+    public void setPlayer(JButton p)
+    {
+        player=p;
+    }
+
 }
