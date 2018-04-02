@@ -5,10 +5,10 @@ public class Spieler {
 	String name;
 	Fraction score=new Fraction("0","1");
 	//Score ist anfangs Null
-	int posX;
-	int posY;
+	private int posX;
+	private int posY;
 	//Koordinaten
-	public Spieler(String name, int posX, int posY) {
+	Spieler(String name, int posX, int posY) {
 		setName(name);
 		setPosX(posX);
 		setPosY(posY);
@@ -16,13 +16,13 @@ public class Spieler {
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
+	private void setName(String name) {
 		this.name = name;
 	}
 	public Fraction getScore() {
 		return score;
 	}
-	public void setScore(Fraction score) {
+	private void setScore(Fraction score) {
 		this.score = score;
 	}
 	public int getPosX() {

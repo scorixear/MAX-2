@@ -27,33 +27,33 @@ public class GameSetup implements ActionListener
             //Dieser Teil liest die Parameter des Spielfeldes ein
             JLabel insertLabel = frame.getInsertLabel();
             JTextField insertTextField = frame.getInsertTextField();
-            if (insertLabel.getText().equals("Gebe die Laenge des Spielfeldes an")) {
-                try {
-                    frame.setLaenge(Integer.parseInt(insertTextField.getText()));
-                } catch (NumberFormatException ex) {
-                    insertTextField.setBackground(Color.red);
-                    return;
-                }
-                insertTextField.setBackground(Color.white);
-                insertLabel.setText("Gebe die Breite des Spielfeldes an");
-                insertTextField.setText("");
-            }
-            else if(insertLabel.getText().equals("Gebe die Breite des Spielfeldes an"))
-            {
-                try {
-                    frame.setBreite(Integer.parseInt(insertTextField.getText()));
-                } catch(NumberFormatException ex)
-                {
-                    insertTextField.setBackground(Color.red);
-                    return;
-                }
-                insertTextField.setBackground(Color.WHITE);
-                insertLabel.setText("Gebe den ersten Spielernamen ein");
-                insertTextField.setText("");
-            }
-            else {
-                System.out.println("Hier sollte er landen");
-                insertPlayers();
+            switch (insertLabel.getText()) {
+                case "Gebe die Laenge des Spielfeldes an":
+                    try {
+                        frame.setLaenge(Integer.parseInt(insertTextField.getText()));
+                    } catch (NumberFormatException ex) {
+                        insertTextField.setBackground(Color.red);
+                        return;
+                    }
+                    insertTextField.setBackground(Color.white);
+                    insertLabel.setText("Gebe die Breite des Spielfeldes an");
+                    insertTextField.setText("");
+                    break;
+                case "Gebe die Breite des Spielfeldes an":
+                    try {
+                        frame.setBreite(Integer.parseInt(insertTextField.getText()));
+                    } catch (NumberFormatException ex) {
+                        insertTextField.setBackground(Color.red);
+                        return;
+                    }
+                    insertTextField.setBackground(Color.WHITE);
+                    insertLabel.setText("Gebe den ersten Spielernamen ein");
+                    insertTextField.setText("");
+                    break;
+                default:
+                    System.out.println("Hier sollte er landen");
+                    insertPlayers();
+                    break;
             }
             System.out.println("hier ist ende");
         }
@@ -184,7 +184,7 @@ public class GameSetup implements ActionListener
                 break;
             case 5: spieler.setPosX(1+xFaktor); spieler.setPosY(6+yFaktor);
                 break;
-            case 6: spieler.setPosX(0+xFaktor); spieler.setPosY(0+yFaktor);
+            case 6: spieler.setPosX(xFaktor); spieler.setPosY(yFaktor);
                 break;
             case 7: spieler.setPosX(7+xFaktor); spieler.setPosY(7+yFaktor);
                 break;

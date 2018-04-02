@@ -4,20 +4,18 @@ package gui;/*
  * @author Katharina Will, Jannik Niedermayer, Luca G�ttle
  * @version 1.0
  *
- * liefert Klasse f�r Br�che. Z�hler und Nenner werden separat gespeichert.
+ * liefert Klasse für Brüche. Zähler und Nenner werden separat gespeichert.
  *
  */
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
 final class Fraction extends Number implements Comparable<Fraction> {
-    public static final Fraction NaN = new Fraction("0", "0");
-    public static final Fraction TEN = new Fraction("10", "1");
+    private static final Fraction NaN = new Fraction("0", "0");
 
 
-    BigInteger zaehler;
-    BigInteger nenner;
+    private BigInteger zaehler;
+    private BigInteger nenner;
 
     public Fraction(String zaehler, String nenner) {
         this.zaehler = new BigInteger(zaehler);
@@ -46,8 +44,6 @@ final class Fraction extends Number implements Comparable<Fraction> {
         if (nenner.equals(BigInteger.ZERO)) {
             return Double.NaN;
         }
-        BigDecimal z = new BigDecimal(zaehler);
-        BigDecimal n = new BigDecimal(nenner);
         return zaehler.divide(nenner).doubleValue();
     }
 
@@ -79,9 +75,8 @@ final class Fraction extends Number implements Comparable<Fraction> {
         if (bigInt.equals(NaN)) {
             return -1;
         }
-        Fraction fr = bigInt;
-        BigInteger big = this.zaehler.multiply(fr.nenner);
-        BigInteger bigfr = fr.zaehler.multiply(this.nenner);
+        BigInteger big = this.zaehler.multiply(bigInt.nenner);
+        BigInteger bigfr = bigInt.zaehler.multiply(this.nenner);
         return big.compareTo(bigfr);
     }
 
@@ -154,21 +149,17 @@ final class Fraction extends Number implements Comparable<Fraction> {
     }
 
     public boolean isInteger() {
-        if (this.nenner.equals(BigInteger.ONE)) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.nenner.equals(BigInteger.ONE);
     }
 
-    public void kuerzen() {
+    private void kuerzen() {
         // System.out.println("kuerzen-Werte "+this.zaehler +" "+this.nenner);
         BigInteger ggT = zaehler.gcd(nenner);
         zaehler = zaehler.divide(ggT);
         nenner = nenner.divide(ggT);
     }
 
-    public void normalisieren() {
+    private void normalisieren() {
         if (this.nenner.compareTo(BigInteger.ZERO) < 0) {
             this.zaehler = this.zaehler.negate();
             this.nenner = this.nenner.negate();
@@ -191,10 +182,7 @@ final class Fraction extends Number implements Comparable<Fraction> {
     }
 
     public boolean isBothPrime() {
-        if (isPrime(this.zaehler) && isPrime(this.nenner)) {
-            return true;
-        }
-        return false;
+        return isPrime(this.zaehler) && isPrime(this.nenner);
     }
 
 }

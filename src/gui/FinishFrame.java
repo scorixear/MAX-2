@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * date: 01.04.2018
  * version: 1.0
  */
-public class FinishFrame extends JFrame {
+class FinishFrame extends JFrame {
     FinishFrame(ArrayList<Spieler> spieler)
     {
         ArrayList<Spieler> gewinner = testScore(spieler);
@@ -22,6 +22,7 @@ public class FinishFrame extends JFrame {
         p.setLayout(new BoxLayout(p,BoxLayout.Y_AXIS));
         setLayout(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         JLabel[] winnerlabel = new JLabel[gewinner.size()];
         p.add(new JLabel("Gewonnen haben:"));
         for(int i=0;i<winnerlabel.length;i++)
@@ -37,6 +38,7 @@ public class FinishFrame extends JFrame {
             playerlabel[i]=new JLabel(spieler.get(i).name+": "+spieler.get(i).score.doubleValue());
             p.add(playerlabel[i]);
         }
+
         getContentPane().add(p);
         p.setBounds(80,10,140,(gewinner.size()+spieler.size())*30);
         setSize(300, (gewinner.size()+spieler.size())*30+50);
@@ -49,13 +51,11 @@ public class FinishFrame extends JFrame {
         setUp(gewinner,spieler);
     }
     private ArrayList<Spieler> testScore(ArrayList<Spieler>spielerArray) {
-        //?berpr?ft den Score der Spieler, ob sie das Limit bereits erreicht haben
-        ArrayList<Spieler>gewinner=new ArrayList<Spieler>();
+        ArrayList<Spieler>gewinner= new ArrayList<>();
         Fraction highestScore=new Fraction("0","1");
         Spieler winner=null;
-        //Liste der Gewinner
         for(Spieler sp:spielerArray) {
-            //alle Spieler, die die Punktzahl erreicht haben, werden in der ArrayList gewinner gespeichert
+            //der Spieler mit der Höchstpunktzahl wird ermittelt
             if(sp.getScore().compareTo(highestScore)>=0) {
                winner = sp;
                highestScore=sp.getScore();
@@ -63,8 +63,7 @@ public class FinishFrame extends JFrame {
         }
         gewinner.add(winner);
        return gewinner;
-
-        //return false gibt an, dass bis jetzt noch kein gewinner gefunden wurde (das spiel l?uft weiter)
+       //returned den Gewinner in einer Liste
     }
 }
 
