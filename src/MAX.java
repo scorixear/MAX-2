@@ -96,7 +96,7 @@ public class MAX {
 		setLimit(new Fraction("80","1"));
 		//Limit (bei dessen erreichen gewonnen wird) wird gesetzt
 		
-		anmeldung(); //ruft anmeldung auf, um die Spieler anzumelden
+		//anmeldung(); //ruft anmeldung auf, um die Spieler anzumelden
 		int  dimension; //Variable f?r laenge, breite, die bestimmt wird
 		do{
 			dimension=IO.promptAndReadInt("Bitte gib die L?nge des Spielfeldes ein (mind. 8, max. 20)");

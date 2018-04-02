@@ -120,10 +120,10 @@ public class GameFrame extends JFrame implements ActionListener {
         int count;
         String inputtext = insertLabel.getText();
         String input = insertTextField.getText();
-        if(inputtext.contains("Spielernamen"))
-        {
+
             if(inputtext.equals("Gebe den ersten Spielernamen ein") )
             {
+                System.out.println("erster Spieler");
                 count =1;
                 if(!input.equals(""))
                 {
@@ -139,6 +139,7 @@ public class GameFrame extends JFrame implements ActionListener {
                 {
                     getContentPane().remove(inputPanel);
                     getContentPane().requestFocusInWindow();
+                    System.out.println("Spieler Limit erreicht");
 
                     setupGame();
                     return;
@@ -148,11 +149,12 @@ public class GameFrame extends JFrame implements ActionListener {
             {
                getContentPane().remove(inputPanel);
                getContentPane().requestFocusInWindow();
+                System.out.println("Spieler input abgebrochen");
                setupGame();
                return;
             }
             insertLabel.setText("Gebe den "+(++count)+". Spielernamen ein");
-        }
+
     }
 
     private void setupGame() {
