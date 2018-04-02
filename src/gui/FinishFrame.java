@@ -1,6 +1,7 @@
 package gui;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -11,6 +12,59 @@ import java.util.ArrayList;
 public class FinishFrame extends JFrame {
     FinishFrame(ArrayList<Spieler> spieler)
     {
+        ArrayList<Spieler> gewinner = testScore(spieler);
+        setUp(gewinner, spieler);
+    }
 
+    private void setUp(ArrayList<Spieler> gewinner, ArrayList<Spieler> spieler) {
+        setTitle("GEWONNEN");
+        JPanel p =new JPanel();
+        p.setLayout(new BoxLayout(p,BoxLayout.Y_AXIS));
+        setLayout(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        JLabel[] winnerlabel = new JLabel[gewinner.size()];
+        p.add(new JLabel("Gewonnen haben:"));
+        for(int i=0;i<winnerlabel.length;i++)
+        {
+            winnerlabel[i]=new JLabel(gewinner.get(i).name+": "+gewinner.get(i).score.doubleValue());
+            p.add(winnerlabel[i]);
+        }
+
+        JLabel[] playerlabel = new JLabel[spieler.size()];
+        p.add(new JLabel("Spielerpunkte:"));
+        for(int i=0;i<playerlabel.length;i++)
+        {
+            playerlabel[i]=new JLabel(spieler.get(i).name+": "+spieler.get(i).score.doubleValue());
+            p.add(playerlabel[i]);
+        }
+        getContentPane().add(p);
+        p.setBounds(80,10,140,(gewinner.size()+spieler.size())*30);
+        setSize(300, (gewinner.size()+spieler.size())*30+50);
+        setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2-getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2-getHeight()/2);
+        setVisible(true);
+    }
+
+    FinishFrame(ArrayList<Spieler> spieler,ArrayList<Spieler> gewinner)
+    {
+        setUp(gewinner,spieler);
+    }
+    private ArrayList<Spieler> testScore(ArrayList<Spieler>spielerArray) {
+        //?berpr?ft den Score der Spieler, ob sie das Limit bereits erreicht haben
+        ArrayList<Spieler>gewinner=new ArrayList<Spieler>();
+        Fraction highestScore=new Fraction("0","1");
+        Spieler winner=null;
+        //Liste der Gewinner
+        for(Spieler sp:spielerArray) {
+            //alle Spieler, die die Punktzahl erreicht haben, werden in der ArrayList gewinner gespeichert
+            if(sp.getScore().compareTo(highestScore)>=0) {
+               winner = sp;
+               highestScore=sp.getScore();
+            }
+        }
+        gewinner.add(winner);
+       return gewinner;
+
+        //return false gibt an, dass bis jetzt noch kein gewinner gefunden wurde (das spiel l?uft weiter)
     }
 }
+
