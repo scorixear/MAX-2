@@ -107,7 +107,7 @@ public class GameSetup implements ActionListener
         frame.getGamePanel().setLayout(new GridLayout(frame.getLaenge(), frame.getBreite()));
         frame.setFractionbuttons(new JButton[frame.getLaenge()][frame.getBreite()]);
         int buttonWidth=75;
-        int buttonHeight=30;
+        int buttonHeight=60;
 
         frame.setSpielbrett(ZufallsBruchGenerator.tabelleFuellen(frame.getLaenge(),frame.getBreite()));
         for(int i = 0;i<frame.getSpielerArray().size();i++)
@@ -120,31 +120,11 @@ public class GameSetup implements ActionListener
         {
             for(int j=0;j<frame.getFractionbuttons()[i].length;j++)
             {
-                Object o =frame.getSpielbrett().get(i).get(j);
-                if(o instanceof Spieler)
-                {
-                    frame.getFractionbuttons()[i][j]=new JButton(((Spieler) o).name.substring(0,1));
-                    //Hier wird der Button mit dem Spieler der am Zug ist im Thread ColorPlayer eingetragen
-                    if(o.equals(frame.getSpielerArray().get(0)))
-                    {
-
-                        if(!frame.getGameMechanics().getColorPlayer().isAlive())
-                        {
-                            frame.getGameMechanics().setColorPlayer(new ColorPlayer());
-                            frame.getGameMechanics().getColorPlayer().start();
-                        }
-                        frame.getGameMechanics().getColorPlayer().setPlayer(frame.getFractionbuttons()[i][j]);
-
-                    }
-                }
-
-                else
-                    frame.getFractionbuttons()[i][j]=new JButton(((Fraction)o).toStringUnified());
-
-                frame.getFractionbuttons()[i][j].setBackground(Color.WHITE);
+                frame.getFractionbuttons()[i][j]=new JButton();
                 frame.getGamePanel().add(frame.getFractionbuttons()[i][j]);
             }
         }
+        frame.getGameMechanics().updateField();
         //verändert den Frame so, dass die Buttons wie gewollt in der Mitte mit ausreichend Platz liegen und verschiebt den Frame wieder in die Mitte des Bildschirmes
         frame.remove(frame.getGamePanel());
         frame.setSize(frame.getBreite()*buttonWidth+40,frame.getLaenge()*buttonHeight+60);

@@ -141,7 +141,7 @@ public class GameMechanic implements KeyListener
         }
     }
 
-    private void updateField(){
+    protected void updateField(){
         //Ersetzt die Texte auf den Buttons anhand der spielbrett-ArrayList. Spieler werden durch den ersten Buchstaben des Namens dargestellt
         for(int i=0;i<frame.getFractionbuttons().length;i++)
         {
@@ -149,7 +149,7 @@ public class GameMechanic implements KeyListener
             {
                 Object o =frame.getSpielbrett().get(i).get(j);
                 if(o instanceof Spieler) {
-                    frame.getFractionbuttons()[i][j].setText(((Spieler) o).name.substring(0, 1));
+                    frame.getFractionbuttons()[i][j].setText(((Spieler) o).name);
                     if(o.equals(frame.getSpielerArray().get(playerToTurn)))
                     {
 
@@ -163,8 +163,17 @@ public class GameMechanic implements KeyListener
                     }
                 }
                 else
-                    frame.getFractionbuttons()[i][j].setText(((Fraction)o).toStringUnified());
-                frame.getFractionbuttons()[i][j].setBackground(Color.WHITE);
+                {
+                    if(((Fraction)o).isInteger())
+                    {
+                        frame.getFractionbuttons()[i][j].setText(((Fraction)o).getZaehler()+"");
+                    }
+                    else
+                    {
+                        frame.getFractionbuttons()[i][j].setText("<html><center>"+((Fraction)o).getZaehler()+"<br>----<br>"+((Fraction)o).getNenner()+"</center></html>");
+                    }
+                }
+                     frame.getFractionbuttons()[i][j].setBackground(Color.WHITE);
             }
         }
     }

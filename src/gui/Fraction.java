@@ -39,6 +39,14 @@ final class Fraction extends Number implements Comparable<Fraction> {
         }
     }
 
+    public BigInteger getNenner() {
+        return nenner;
+    }
+
+    public BigInteger getZaehler() {
+        return zaehler;
+    }
+
     @Override
     public double doubleValue() {
         if (nenner.equals(BigInteger.ZERO)) {
