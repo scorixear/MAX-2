@@ -6,7 +6,6 @@ import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
 
 public class ArrowButton extends JDialog{
     /*
@@ -35,7 +34,7 @@ public class ArrowButton extends JDialog{
         }
     };
 
-    public ArrowButton(GameMechanic gameMechanic){
+    private ArrowButton(GameMechanic gameMechanic){
         this.myGame=gameMechanic;
 
         BasicArrowButton north, west, east, south;

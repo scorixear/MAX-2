@@ -141,7 +141,8 @@ public class GameSetup implements ActionListener
                 new FinishFrame(frame.getSpielerArray());
             }
         });
-
+        frame.getGameMechanics().setArrowActive();
+        //active Frame with arrows for on screen control. Done here because it becomes necessary at this point (Game actually starts)
 
     }
     private void generierePosition(Spieler spieler, int x) {
