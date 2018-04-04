@@ -2,10 +2,7 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 
@@ -109,7 +106,7 @@ public class GameSetup implements ActionListener
         int buttonWidth=75;
         int buttonHeight=60;
 
-        frame.setSpielbrett(ZufallsBruchGenerator.tabelleFuellen(frame.getLaenge(),frame.getBreite()));
+        frame.setSpielbrett(ZufallsBruchGenerator.tabelleFuellen(frame.getBreite(),frame.getLaenge()));
         for(int i = 0;i<frame.getSpielerArray().size();i++)
         {
             generierePosition(frame.getSpielerArray().get(i),i);
@@ -118,10 +115,20 @@ public class GameSetup implements ActionListener
 
         for(int i=0;i<frame.getFractionbuttons().length;i++)
         {
-            for(int j=0;j<frame.getFractionbuttons()[i].length;j++)
-            {
-                frame.getFractionbuttons()[i][j]=new JButton();
+            for(int j=0;j<frame.getFractionbuttons()[i].length;j++) {
+                frame.getFractionbuttons()[i][j] = new JButton();
                 frame.getGamePanel().add(frame.getFractionbuttons()[i][j]);
+                frame.getFractionbuttons()[i][j].addFocusListener(new FocusListener() {
+                    @Override
+                    public void focusGained(FocusEvent e) {
+                        frame.getContentPane().requestFocusInWindow();
+                    }
+
+                    @Override
+                    public void focusLost(FocusEvent e) {
+
+                    }
+                });
             }
         }
         frame.getGameMechanics().updateField();
@@ -138,6 +145,7 @@ public class GameSetup implements ActionListener
             @Override
             public void windowClosing(WindowEvent e) {
                 frame.dispose();
+                frame.getGameMechanics().getArrowButton().dispose();
                 new FinishFrame(frame.getSpielerArray());
             }
         });

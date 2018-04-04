@@ -34,6 +34,11 @@ public class GameMechanic implements KeyListener
     public void setColorPlayer(ColorPlayer p) {
         colorPlayer=p;
     }
+
+    public ArrowButton getArrowButton() {
+        return arrowButton;
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
 

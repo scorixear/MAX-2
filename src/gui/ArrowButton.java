@@ -14,38 +14,19 @@ public class ArrowButton extends JDialog{
        @author Luca Göttle
      */
     private GameMechanic myGame;
-    private ActionListener actList=new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String command=e.getActionCommand();
-            if("NORTHSOUTHEASTWEST".contains(command)) {
-                System.out.println("Action: " + command);
-                switch(command){
-                    //translate Button name for command to equivalent key event name
-                    //so class GameMechanic can use these events
-                    case "NORTH":   command ="w";break;
-                    case "EAST":    command ="d";break;
-                    case "SOUTH":   command ="s";break;
-                    case "WEST":    command ="a";break;
-                    default: return;
-                }
-                myGame.actionToMove(command);
-            }
-        }
-    };
 
-    private ArrowButton(GameMechanic gameMechanic){
+    ArrowButton(GameMechanic gameMechanic){
         this.myGame=gameMechanic;
 
         BasicArrowButton north, west, east, south;
         north	=new BasicArrowButton(BasicArrowButton.NORTH);
-        north.setActionCommand("NORTH");
+        north.setActionCommand("w");
         west	=new BasicArrowButton(BasicArrowButton.WEST);
-        west.setActionCommand("WEST");
+        west.setActionCommand("a");
         east	=new BasicArrowButton(BasicArrowButton.EAST);
-        east.setActionCommand("EAST");
+        east.setActionCommand("d");
         south	=new BasicArrowButton(BasicArrowButton.SOUTH);
-        south.setActionCommand("SOUTH");
+        south.setActionCommand("s");
 
         setSize(200,250);
         setTitle("MAX Controls");
@@ -65,6 +46,13 @@ public class ArrowButton extends JDialog{
 
         for(Component c:getContentPane().getComponents()){
             if(c instanceof BasicArrowButton) {
+                ActionListener actList = e -> {
+                    String command = e.getActionCommand();
+                    if ("wasd".contains(command)) {
+                        System.out.println("Action: " + command);
+                        myGame.actionToMove(command);
+                    }
+                };
                 ((BasicArrowButton) c).addActionListener(actList);
                 (c).setBackground(new Color(35,120,35));
             }
