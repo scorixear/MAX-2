@@ -19,7 +19,8 @@ public class GameFrame extends JFrame {
     private ArrayList<ArrayList<Object>> spielbrett= new ArrayList<>();
     private GameMechanic gameMechanics;
     private int laenge;                                                                                                 //Anzahl an Reihen des Spielfeldes
-    private int breite;                                                                                                 //Anzahl an Spalten des Spielfeldes
+    private int breite;
+    //Anzahl an Spalten des Spielfeldes
     private GameFrame(){
         setTitle("Max-GUI");
         setLayout(null);

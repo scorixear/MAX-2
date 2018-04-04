@@ -18,12 +18,15 @@ public class GameMechanic implements KeyListener
    private int playerToTurn;
    private Fraction punkteLimit;
    private ColorPlayer colorPlayer;
+   private ArrowButton arrowButton; //Instance for on-screen controls
+    private boolean doIwantAGUIwithButtons=true; // sprechende Name, my ass
     GameMechanic(GameFrame frame)
     {
         this.frame=frame;
         playerToTurn = 0;
-        punkteLimit=new Fraction("10","1");
+        punkteLimit=new Fraction("20","1");
         colorPlayer=new ColorPlayer();
+        if(doIwantAGUIwithButtons) arrowButton=new ArrowButton(this);
     }
     public ColorPlayer getColorPlayer() {
         return colorPlayer;
@@ -31,6 +34,11 @@ public class GameMechanic implements KeyListener
     public void setColorPlayer(ColorPlayer p) {
         colorPlayer=p;
     }
+
+    public ArrowButton getArrowButton() {
+        return arrowButton;
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -62,8 +70,6 @@ public class GameMechanic implements KeyListener
                         playerToTurn=0;
                     updateField();
                     testScore();
-
-
                 }
             }
         }
@@ -175,6 +181,30 @@ public class GameMechanic implements KeyListener
                 }
                      frame.getFractionbuttons()[i][j].setBackground(Color.WHITE);
             }
+        }
+    }
+    protected void actionToMove(String s){
+        //method receives external ActionCommand and passes it on
+        try{
+            char c=s.charAt(0);
+            if ("wasd".contains(s))                                                                     //Steuerung über W-A-S-D
+            {
+                if(kannBewegen(frame.getSpielerArray().get(playerToTurn),c))                               //Spieler kann sich in die gewählte Richtung bewegen?
+                {
+                    bewegeSpieler(frame.getSpielerArray().get(playerToTurn),c);
+                    if(++playerToTurn==frame.getSpielerArray().size())                                                  //Wählt den nächsten Spieler aus
+                        playerToTurn=0;
+                    updateField();
+                    testScore();
+                }
+            }
+        }catch(Exception e){
+            System.out.println("Exception: Can't use Controls at this point");
+        }
+    }
+    protected void setArrowActive(){
+        if(doIwantAGUIwithButtons && arrowButton!=null){
+            arrowButton.setArrowVisible(true);
         }
     }
 }
