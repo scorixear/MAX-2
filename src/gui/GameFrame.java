@@ -27,6 +27,7 @@ public class GameFrame extends JFrame {
 
         insertLabel=new JLabel("Gebe die Laenge des Spielfeldes an");
         insertTextField=new JTextField("");
+        insertTextField.setHorizontalAlignment(JTextField.CENTER);
         inputPanel = new JPanel();
         inputPanel.setLayout(new BoxLayout(inputPanel,BoxLayout.Y_AXIS));
         inputPanel.add(insertLabel);

@@ -68,4 +68,7 @@ public class ArrowButton extends JDialog{
     public void setArrowVisible(boolean b){
         setVisible(b);
     }
+    public void setActivePlayer(String s){
+        this.setTitle(s);
+    }
 }
