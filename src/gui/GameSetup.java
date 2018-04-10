@@ -33,6 +33,11 @@ public class GameSetup implements ActionListener
                         insertTextField.setBackground(Color.red);
                         return;
                     }
+                    if(Integer.parseInt(insertTextField.getText())<8)
+                    {
+                        insertTextField.setBackground(Color.red);
+                        return;
+                    }
                     insertTextField.setBackground(Color.white);
                     insertLabel.setText("Gebe die Breite des Spielfeldes an");
                     insertTextField.setText("");
@@ -41,6 +46,11 @@ public class GameSetup implements ActionListener
                     try {
                         frame.setBreite(Integer.parseInt(insertTextField.getText()));
                     } catch (NumberFormatException ex) {
+                        insertTextField.setBackground(Color.red);
+                        return;
+                    }
+                    if(Integer.parseInt(insertTextField.getText())<8)
+                    {
                         insertTextField.setBackground(Color.red);
                         return;
                     }

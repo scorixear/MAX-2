@@ -17,7 +17,7 @@ public class Spieler {
 		BufferedImage image = null;
 		try {
 			image = ImageIO.read(getClass().getResource(path));
-			dimg = image.getScaledInstance(75,60, Image.SCALE_SMOOTH);
+			dimg = image.getScaledInstance(80,60, Image.SCALE_SMOOTH);
 
 		} catch (Exception ignored) {
 			System.out.println("notfound");

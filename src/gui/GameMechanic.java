@@ -26,8 +26,6 @@ public class GameMechanic implements KeyListener
    private boolean doIwantAGUIwithButtons=true; // sprechende Name
     GameMechanic(GameFrame frame)
     {
-
-
         this.frame=frame;
         playerToTurn = 0;
         punkteLimit=new Fraction("20","1");

@@ -21,7 +21,7 @@ public class GameFrame extends JFrame {
     private int laenge;                                                                                                 //Anzahl an Reihen des Spielfeldes
     private int breite;
     //Anzahl an Spalten des Spielfeldes
-    private GameFrame(){
+    GameFrame(){
         setTitle("Max-GUI");
         setLayout(null);
 
@@ -86,7 +86,5 @@ public class GameFrame extends JFrame {
         return gameMechanics;
     }
 
-    public static void main(String[] args) {
-      new GameFrame();
-    }
+
 }
