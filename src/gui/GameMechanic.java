@@ -1,18 +1,15 @@
 package gui;
 
 
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * author: Paul Keller
+ * author: Paul Keller, Luca Goettle, Katharina Will
  * date: 02.04.2018
  * version: 1.0
  */

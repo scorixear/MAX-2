@@ -5,12 +5,16 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
 import java.awt.event.ActionListener;
+/**
+ * author: Paul Keller, Luca Goettle, Katharina Will
+ * date: 02.04.2018
+ * version: 1.0
+ */
 
 public class ArrowButton extends JDialog{
     /*
        class ArrowButton
        second Frame for on-screen controls
-       @author Luca Göttle
      */
     private GameMechanic myGame;
 

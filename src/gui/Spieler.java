@@ -3,7 +3,11 @@ package gui;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-
+/**
+ * author: Paul Keller, Luca Goettle, Katharina Will
+ * date: 02.04.2018
+ * version: 1.0
+ */
 public class Spieler {
 	//Spieler-Klasse
 	String name;
