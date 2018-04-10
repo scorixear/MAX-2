@@ -2,6 +2,8 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 /**
@@ -10,10 +12,17 @@ import java.util.ArrayList;
  * version: 1.0
  */
 class FinishFrame extends JFrame {
+    WindowAdapter windowAd=new WindowAdapter() {
+        @Override
+        public void windowClosing(WindowEvent e){
+            disposeFrame();
+        }
+    };
     FinishFrame(ArrayList<Spieler> spieler)
     {
         ArrayList<Spieler> gewinner = testScore(spieler);
         setUp(gewinner, spieler);
+        addWindowListener(windowAd);
     }
 
     private void setUp(ArrayList<Spieler> gewinner, ArrayList<Spieler> spieler) {
@@ -21,7 +30,6 @@ class FinishFrame extends JFrame {
         JPanel p =new JPanel();
         p.setLayout(new BoxLayout(p,BoxLayout.Y_AXIS));
         setLayout(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         JLabel[] winnerlabel = new JLabel[gewinner.size()];
         p.add(new JLabel("Gewonnen haben:"));
@@ -64,6 +72,9 @@ class FinishFrame extends JFrame {
         gewinner.add(winner);
        return gewinner;
        //returned den Gewinner in einer Liste
+    }
+    private void disposeFrame(){
+        this.dispose();
     }
 }
 

@@ -22,6 +22,7 @@ public class StartFrame extends JFrame implements ActionListener {
         add(neuesSpiel);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
+        setResizable(false);
     }
 
     @Override

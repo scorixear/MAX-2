@@ -133,6 +133,7 @@ public class GameMechanic implements KeyListener
 
     private void testScore() {
         //Überprüft den Score der Spieler, ob sie das Limit bereits erreicht haben
+
         ArrayList<Spieler>gewinner= new ArrayList<>();
         //Liste der Gewinner
         for(Spieler sp:frame.getSpielerArray()) {
@@ -151,6 +152,11 @@ public class GameMechanic implements KeyListener
 
     protected void updateField(){
         //Ersetzt die Texte auf den Buttons anhand der spielbrett-ArrayList. Spieler werden durch den ersten Buchstaben des Namens dargestellt
+        try{
+            arrowButton.setActivePlayer(frame.getSpielerArray().get(playerToTurn).getName());
+        }catch(Exception exc){
+
+        }
         for(int i=0;i<frame.getFractionbuttons().length;i++)
         {
             for(int j=0;j<frame.getFractionbuttons()[i].length;j++)
