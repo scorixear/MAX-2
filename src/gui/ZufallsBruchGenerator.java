@@ -1,7 +1,11 @@
 package gui;
 
 import java.util.ArrayList;
-
+/**
+ * author: Paul Keller, Luca Goettle, Katharina Will
+ * date: 02.04.2018
+ * version: 1.0
+ */
 public class ZufallsBruchGenerator {
 	
 	public static ArrayList<ArrayList<Object>> tabelleFuellen(int laenge, int breite){

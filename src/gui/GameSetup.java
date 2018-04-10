@@ -7,14 +7,14 @@ import java.awt.event.*;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 
 /**
- * author: Paul Keller
+ * author: Paul Keller, Luca Goettle, Katharina Will
  * date: 02.04.2018
  * version: 1.0
  */
 public class GameSetup implements ActionListener
 {
     private GameFrame frame;
-    private String[] names = {"/derFreundlicheFranz.jpg","/Hamsterfranz.jpg","/HamsterFranz.png","/Doppelfranz.jpg"};
+    private String[] names = {"/derFreundlicheFranz.png","/HamsterFranz.png","/Doppelfranz.png"};
     GameSetup(GameFrame frame){
        this.frame=frame;
     }

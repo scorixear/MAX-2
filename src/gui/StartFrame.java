@@ -6,8 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * author: Paul Keller
- * date: 10.04.2018
+ * author: Paul Keller, Luca Goettle, Katharina Will
+ * date: 02.04.2018
  * version: 1.0
  */
 public class StartFrame extends JFrame implements ActionListener {
