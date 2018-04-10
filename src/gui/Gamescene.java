@@ -35,7 +35,7 @@ public class Gamescene {
                 fractionbuttons[i][j]=new Button();
                 gameGrid.add(fractionbuttons[i][j],i,j);
                 fractionbuttons[i][j].focusedProperty().addListener((observable, oldValue, newValue) -> {
-                    
+
 
                 });
             }
