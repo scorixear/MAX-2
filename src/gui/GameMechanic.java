@@ -44,14 +44,10 @@ public class GameMechanic implements KeyListener
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
+    public void keyTyped(KeyEvent e) {}
 
     @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
+    public void keyPressed(KeyEvent e) {}
 
     @Override
     public void keyReleased(KeyEvent e) {
@@ -223,16 +219,15 @@ public class GameMechanic implements KeyListener
     }
 }
 class ColorPlayer extends Thread {
+    //Diese Klasse ändert den Hintergrund der Bilder von den Spielern auf dem Spielfeld.
     private JButton player;
-
     @Override
     public void run(){
         boolean running=true;
         float h1 =0.0F;
         while(running)
         {
-            if(player!=null)
-            {
+            if(player!=null) {
                 player.setBackground(Color.getHSBColor(h1,1,1));
                 h1=(h1>1.0F)?0.0F:h1+0.01F;
             }

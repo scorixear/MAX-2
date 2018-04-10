@@ -14,11 +14,9 @@ public class Spieler {
 	private Image dimg;
 	//Koordinaten
 	Spieler(String name, int posX, int posY,String path) {
-		BufferedImage image = null;
 		try {
-			image = ImageIO.read(getClass().getResource(path));
+			BufferedImage image = ImageIO.read(getClass().getResource(path));
 			dimg = image.getScaledInstance(80,60, Image.SCALE_SMOOTH);
-
 		} catch (Exception ignored) {
 			System.out.println("notfound");
 		}

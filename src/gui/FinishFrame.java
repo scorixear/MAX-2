@@ -21,7 +21,7 @@ class FinishFrame extends JFrame {
         JPanel p =new JPanel();
         p.setLayout(new BoxLayout(p,BoxLayout.Y_AXIS));
         setLayout(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JLabel[] winnerlabel = new JLabel[gewinner.size()];
         p.add(new JLabel("Gewonnen haben:"));
