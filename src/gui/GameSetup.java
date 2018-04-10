@@ -14,6 +14,7 @@ import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 public class GameSetup implements ActionListener
 {
     private GameFrame frame;
+    private String[] names = {"/derFreundlicheFranz.jpg","/Hamsterfranz.jpg","/HamsterFranz.png","/Doppelfranz.jpg"};
     GameSetup(GameFrame frame){
        this.frame=frame;
     }
@@ -48,11 +49,9 @@ public class GameSetup implements ActionListener
                     insertTextField.setText("");
                     break;
                 default:
-                    System.out.println("Hier sollte er landen");
                     insertPlayers();
                     break;
             }
-            System.out.println("hier ist ende");
         }
     }
     private void insertPlayers() {
@@ -63,10 +62,9 @@ public class GameSetup implements ActionListener
 
         if(inputtext.equals("Gebe den ersten Spielernamen ein")||inputtext.equals("Mindestens ein Spieler muss gesetzt werden") )
         {
-            System.out.println(input.equals(""));
             if(!input.equals(""))
             {
-                frame.getSpielerArray().add(new Spieler(input,0,0));
+                frame.getSpielerArray().add(new Spieler(input,0,0,"/beleidigterFranz.png"));
                 frame.getInsertTextField().setText("");
                 frame.getInsertLabel().setText("Gebe den 2. Spielernamen ein");
                 return;
@@ -77,14 +75,12 @@ public class GameSetup implements ActionListener
         else if(!input.equals(""))
         {
             count = Integer.parseInt(inputtext.substring(9,10));
-            frame.getSpielerArray().add(new Spieler(input, 0,0));
+            frame.getSpielerArray().add(new Spieler(input, 0,0,(names.length>count-2)?names[count-2]:"fff"));
             frame.getInsertTextField().setText("");
             if(count==8)
             {
                 frame.getContentPane().remove(frame.getInputPanel());
                 frame.getContentPane().requestFocusInWindow();
-                System.out.println("Spieler Limit erreicht");
-
                 setupGame();
                 return;
             }
@@ -93,7 +89,6 @@ public class GameSetup implements ActionListener
         {
             frame.getContentPane().remove(frame.getInputPanel());
             frame.getContentPane().requestFocusInWindow();
-            System.out.println("Spieler input abgebrochen");
             setupGame();
             return;
         }
@@ -117,6 +112,8 @@ public class GameSetup implements ActionListener
         {
             for(int j=0;j<frame.getFractionbuttons()[i].length;j++) {
                 frame.getFractionbuttons()[i][j] = new JButton();
+                frame.getFractionbuttons()[i][j].setMargin(new Insets(0,0,0,0));
+                frame.getFractionbuttons()[i][j].setBorder(null);
                 frame.getGamePanel().add(frame.getFractionbuttons()[i][j]);
                 frame.getFractionbuttons()[i][j].addFocusListener(new FocusListener() {
                     @Override

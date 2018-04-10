@@ -1,10 +1,14 @@
 package gui;
 
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -19,9 +23,11 @@ public class GameMechanic implements KeyListener
    private Fraction punkteLimit;
    private ColorPlayer colorPlayer;
    private ArrowButton arrowButton; //Instance for on-screen controls
-    private boolean doIwantAGUIwithButtons=true; // sprechende Name, my ass
+   private boolean doIwantAGUIwithButtons=true; // sprechende Name
     GameMechanic(GameFrame frame)
     {
+
+
         this.frame=frame;
         playerToTurn = 0;
         punkteLimit=new Fraction("20","1");
@@ -143,6 +149,7 @@ public class GameMechanic implements KeyListener
         if(gewinner.size()>0) {
             //wenn es einen (oder mehrere gewinner gibt), wird der Finish-Frame eingeblendet
             frame.dispose();
+            getArrowButton().dispose();
             new FinishFrame(frame.getSpielerArray(),gewinner);
         }
     }
@@ -156,6 +163,14 @@ public class GameMechanic implements KeyListener
                 Object o =frame.getSpielbrett().get(i).get(j);
                 if(o instanceof Spieler) {
                     frame.getFractionbuttons()[i][j].setText(((Spieler) o).name);
+                    try {
+
+                        frame.getFractionbuttons()[i][j].setIcon(new ImageIcon(((Spieler)o).getIcon()));
+
+                    } catch ( Exception e)
+                    {
+                        frame.getFractionbuttons()[i][j].setIcon(null);
+                    }
                     if(o.equals(frame.getSpielerArray().get(playerToTurn)))
                     {
 
@@ -170,6 +185,7 @@ public class GameMechanic implements KeyListener
                 }
                 else
                 {
+                    frame.getFractionbuttons()[i][j].setIcon(null);
                     if(((Fraction)o).isInteger())
                     {
                         frame.getFractionbuttons()[i][j].setText(((Fraction)o).getZaehler()+"");

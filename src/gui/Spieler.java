@@ -1,5 +1,9 @@
 package gui;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 public class Spieler {
 	//Spieler-Klasse
 	String name;
@@ -7,8 +11,17 @@ public class Spieler {
 	//Score ist anfangs Null
 	private int posX;
 	private int posY;
+	private Image dimg;
 	//Koordinaten
-	Spieler(String name, int posX, int posY) {
+	Spieler(String name, int posX, int posY,String path) {
+		BufferedImage image = null;
+		try {
+			image = ImageIO.read(getClass().getResource(path));
+			dimg = image.getScaledInstance(75,60, Image.SCALE_SMOOTH);
+
+		} catch (Exception ignored) {
+			System.out.println("notfound");
+		}
 		setName(name);
 		setPosX(posX);
 		setPosY(posY);
@@ -16,6 +29,7 @@ public class Spieler {
 	public String getName() {
 		return name;
 	}
+	public Image getIcon(){return dimg;}
 	private void setName(String name) {
 		this.name = name;
 	}
