@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 public class ArrowButton extends JDialog{
     /*
        class ArrowButton
-       second Frame for on-screen controls
+       zweites Fenster für Bildschirm-Steuerung
      */
     private GameMechanic myGame;
 
@@ -63,7 +63,7 @@ public class ArrowButton extends JDialog{
         setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2+200, Toolkit.getDefaultToolkit().getScreenSize().height/2-50);
         setVisible(false);
         //setUndecorated(true);
-        //only set it visible when game starts
+        //wird nur sichtbar gesetzt, wenn das Spiel startet
     }
     public void setArrowVisible(boolean b){
         setVisible(b);
