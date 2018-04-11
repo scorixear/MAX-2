@@ -12,7 +12,15 @@ import java.util.ArrayList;
  * version: 1.0
  */
 class FinishFrame extends JFrame {
-
+    
+    FinishFrame(ArrayList<Spieler> spieler)
+    {
+        setUp(testScore(spieler),spieler);
+    }
+    FinishFrame(ArrayList<Spieler> spieler,ArrayList<Spieler> gewinner)
+    {
+        setUp(gewinner,spieler);
+    }
 
     private void setUp(ArrayList<Spieler> gewinner, ArrayList<Spieler> spieler) {
         setTitle("GEWONNEN");
@@ -44,10 +52,7 @@ class FinishFrame extends JFrame {
         setVisible(true);
     }
 
-    FinishFrame(ArrayList<Spieler> spieler,ArrayList<Spieler> gewinner)
-    {
-        setUp(gewinner,spieler);
-    }
+
     private ArrayList<Spieler> testScore(ArrayList<Spieler>spielerArray) {
         ArrayList<Spieler>gewinner= new ArrayList<>();
         Fraction highestScore=new Fraction("0","1");
