@@ -1,18 +1,15 @@
 package gui;
 
 
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * author: Paul Keller
+ * author: Paul Keller, Luca Goettle, Katharina Will
  * date: 02.04.2018
  * version: 1.0
  */
@@ -132,6 +129,7 @@ public class GameMechanic implements KeyListener
 
     private void testScore() {
         //Überprüft den Score der Spieler, ob sie das Limit bereits erreicht haben
+
         ArrayList<Spieler>gewinner= new ArrayList<>();
         //Liste der Gewinner
         for(Spieler sp:frame.getSpielerArray()) {
@@ -150,6 +148,11 @@ public class GameMechanic implements KeyListener
 
     protected void updateField(){
         //Ersetzt die Texte auf den Buttons anhand der spielbrett-ArrayList. Spieler werden durch den ersten Buchstaben des Namens dargestellt
+        try{
+            arrowButton.setActivePlayer(frame.getSpielerArray().get(playerToTurn).getName());
+        }catch(Exception exc){
+
+        }
         for(int i=0;i<frame.getFractionbuttons().length;i++)
         {
             for(int j=0;j<frame.getFractionbuttons()[i].length;j++)

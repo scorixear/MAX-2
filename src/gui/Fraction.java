@@ -1,8 +1,8 @@
 package gui;/*
- * class Fraction
- *
- * @author Katharina Will, Jannik Niedermayer, Luca G�ttle
- * @version 1.0
+/**
+ * author: Paul Keller, Luca Goettle, Katharina Will
+ * date: 02.04.2018
+ * version: 1.0
  *
  * liefert Klasse für Brüche. Zähler und Nenner werden separat gespeichert.
  *

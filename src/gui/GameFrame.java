@@ -5,8 +5,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * author: Paul Keller
- * date: 01.04.2018
+ * author: Paul Keller, Luca Goettle, Katharina Will
+ * date: 02.04.2018
  * version: 1.0
  */
 public class GameFrame extends JFrame {
@@ -27,6 +27,7 @@ public class GameFrame extends JFrame {
 
         insertLabel=new JLabel("Gebe die Laenge des Spielfeldes an");
         insertTextField=new JTextField("");
+        insertTextField.setHorizontalAlignment(JTextField.CENTER);
         inputPanel = new JPanel();
         inputPanel.setLayout(new BoxLayout(inputPanel,BoxLayout.Y_AXIS));
         inputPanel.add(insertLabel);
