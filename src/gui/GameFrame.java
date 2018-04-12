@@ -39,7 +39,7 @@ public class GameFrame extends JFrame {
         getContentPane().add(inputPanel);
         gameMechanics=new GameMechanic(this);
         getContentPane().addKeyListener(gameMechanics);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setBounds(Toolkit.getDefaultToolkit().getScreenSize().width/2-125, Toolkit.getDefaultToolkit().getScreenSize().height/2-50,300,100);
         //Setzt das Fenster in die Mitte des Bildschirms, abhängig von der eingestellten Auflösung des Bildschirms und der Größe des Frames
         setVisible(true);
