@@ -11,15 +11,13 @@ import java.awt.event.ActionListener;
  * version: 1.0
  */
 public class StartFrame extends JFrame implements ActionListener {
-    //der Startframe, welcher nur einen Button enthält um Spielinstanzen zu erstellen.
-    private JButton neuesSpiel;
-    StartFrame(){
+    private StartFrame(){
         setLayout(new BorderLayout());
         setBounds(Toolkit.getDefaultToolkit().getScreenSize().width/2-300,Toolkit.getDefaultToolkit().getScreenSize().height/2-300, 300, 300);
         setTitle("Das Franz-Spiel");
-        neuesSpiel=new JButton("Neues Spiel");
+        JButton neuesSpiel = new JButton("Neues Spiel");
         neuesSpiel.addActionListener(this);
-        add(neuesSpiel,BorderLayout.CENTER);
+        add(neuesSpiel, BorderLayout.CENTER);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
         setResizable(false);

@@ -99,7 +99,7 @@ public class GameMechanic implements KeyListener
         //Spieler wird auf dem Feld bewegt
         spieler.setPosX(xziel);
         spieler.setPosY(yziel);
-        //koordinaten werden auch im Spieler-Obj gespeichert
+        //Koordinaten werden auch im Spieler-Obj gespeichert
         frame.setElementSpielbrett(new Fraction("0","1"), xquell, yquell);
         //das vom Spieler verlassene Feld wird auf Null gesetzt
     }
@@ -197,7 +197,7 @@ public class GameMechanic implements KeyListener
         }
     }
     protected void actionToMove(String s){
-        //method receives external ActionCommand and passes it on
+        //Methode erhält externen ActionCommand und reicht ihn weiter
         try{
             char c=s.charAt(0);
             if ("wasd".contains(s))                                                                     //Steuerung über W-A-S-D

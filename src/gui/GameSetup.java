@@ -157,7 +157,7 @@ public class GameSetup implements ActionListener
             }
         });
         frame.getGameMechanics().setArrowActive();
-        //active Frame with arrows for on screen control. Done here because it becomes necessary at this point (Game actually starts)
+        //aktives Fenster mit Pfeilen für Bildschirm-Steuerung. Wird hier gemacht, weil es zu diesem Zeitpunkt nötig wird (Spiel startet tatsächlich)
 
     }
     private void generierePosition(Spieler spieler, int x) {

@@ -133,8 +133,8 @@ final class Fraction extends Number implements Comparable<Fraction> {
     }
 
     public String toStringUnified() {
-        //only to use for Strings whose nenner /zaehler is a)positive and b) less than or equal to 99
-        //unifies representation so it looks fancy in console in an array
+        //nur zur Nutzung von String, wessen nenner /zaehler a)positiv ist und b) weniger oder gleich als 99 ist
+        //vereinheitlicht Darstellung, damit es in einem Array in der Konsole besser aussieht
         if (this.isInteger()) {
             if (this.intValue() == 10) {
                 return "[  10 ]";
