@@ -177,7 +177,7 @@ public class GameMechanic implements KeyListener
                             colorPlayer.start();
                         }
                         colorPlayer.setPlayer(frame.getFractionbuttons()[i][j]);
-
+                        frame.setTitle("Max-GUI "+((Spieler)o).getName());
                     }
                 }
                 else

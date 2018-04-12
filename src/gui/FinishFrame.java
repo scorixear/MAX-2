@@ -2,8 +2,6 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +10,7 @@ import java.util.ArrayList;
  * version: 1.0
  */
 class FinishFrame extends JFrame {
-    
+
     FinishFrame(ArrayList<Spieler> spieler)
     {
         setUp(testScore(spieler),spieler);
