@@ -1,4 +1,4 @@
-package gui;/*
+package gui;
 /**
  * author: Paul Keller, Luca Goettle, Katharina Will
  * date: 02.04.2018
@@ -8,9 +8,10 @@ package gui;/*
  *
  */
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
-final class Fraction extends Number implements Comparable<Fraction> {
+final class Fraction extends Number implements Comparable<Fraction>, Serializable {
     private static final Fraction NaN = new Fraction("0", "0");
 
 
