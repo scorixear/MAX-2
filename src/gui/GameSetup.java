@@ -3,6 +3,7 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 
@@ -28,7 +29,7 @@ public class GameSetup implements ActionListener
             switch (insertLabel.getText()) {
                 case "Gebe die Laenge des Spielfeldes an":
                     try {
-                        frame.setLaenge(Integer.parseInt(insertTextField.getText()));
+                        frame.getSpielbrett().setLaenge(Integer.parseInt(insertTextField.getText()));
                     } catch (NumberFormatException ex) {
                         insertTextField.setBackground(Color.red);
                         return;
@@ -44,7 +45,7 @@ public class GameSetup implements ActionListener
                     break;
                 case "Gebe die Breite des Spielfeldes an":
                     try {
-                        frame.setBreite(Integer.parseInt(insertTextField.getText()));
+                        frame.getSpielbrett().setBreite(Integer.parseInt(insertTextField.getText()));
                     } catch (NumberFormatException ex) {
                         insertTextField.setBackground(Color.red);
                         return;
@@ -57,11 +58,26 @@ public class GameSetup implements ActionListener
                     insertTextField.setBackground(Color.WHITE);
                     insertLabel.setText("Gebe den ersten Spielernamen ein");
                     insertTextField.setText("");
+                    frame.getInputPanel().setBounds(10,8,270,100);
+                    frame.setSize(300,150);
+                    frame.getInputPanel().add(frame.getPicturePath());
+                    frame.getInputPanel().add(frame.getPictureButton());
+                    frame.repaint();
                     break;
                 default:
                     insertPlayers();
                     break;
             }
+        }else if(e.getSource() instanceof JButton)
+        {
+          JFileChooser c = new JFileChooser(new File(frame.getPicturePath().getText()));
+          c.setFileSelectionMode(JFileChooser.FILES_ONLY);
+          int rVal = c.showOpenDialog(frame);
+          if(rVal==JFileChooser.APPROVE_OPTION)
+          {
+              frame.getPicturePath().setText(c.getSelectedFile().getAbsolutePath());
+          }
+
         }
     }
     private void insertPlayers() {
@@ -70,13 +86,17 @@ public class GameSetup implements ActionListener
         String inputtext = frame.getInsertLabel().getText();
         String input = frame.getInsertTextField().getText();
 
+
+
         if(inputtext.equals("Gebe den ersten Spielernamen ein")||inputtext.equals("Mindestens ein Spieler muss gesetzt werden") )
         {
+
             if(!input.equals(""))
             {
-                frame.getSpielerArray().add(new Spieler(input,0,0,"/beleidigterFranz.png"));
+                frame.getSpielbrett().getSpielerArray().add(new Spieler(input,0,0,frame.getPicturePath().getText()));
                 frame.getInsertTextField().setText("");
                 frame.getInsertLabel().setText("Gebe den 2. Spielernamen ein");
+                frame.getPicturePath().setText(System.getProperty("java.class.path")+"/derFreundlicheFranz.png");
                 return;
             }
             frame.getInsertLabel().setText("Mindestens ein Spieler muss gesetzt werden");
@@ -85,7 +105,8 @@ public class GameSetup implements ActionListener
         else if(!input.equals(""))
         {
             count = Integer.parseInt(inputtext.substring(9,10));
-            frame.getSpielerArray().add(new Spieler(input, 0,0,(names.length>count-2)?names[count-2]:"fff"));
+            frame.getSpielbrett().getSpielerArray().add(new Spieler(input, 0,0,frame.getPicturePath().getText()));
+            frame.getPicturePath().setText(System.getProperty("java.class.path")+((names.length>count-2)?names[count-2]:"fff"));
             frame.getInsertTextField().setText("");
             if(count==8)
             {
@@ -99,6 +120,7 @@ public class GameSetup implements ActionListener
         {
             frame.getContentPane().remove(frame.getInputPanel());
             frame.getContentPane().requestFocusInWindow();
+            frame.setJMenuBar(frame.getMb());
             setupGame();
             return;
         }
@@ -106,16 +128,16 @@ public class GameSetup implements ActionListener
     }
     private void setupGame() {
         //Erstellt das Spielfeld und synchronisiert erstmals jenes mit den Buttons
-        frame.getGamePanel().setLayout(new GridLayout(frame.getLaenge(), frame.getBreite()));
-        frame.setFractionbuttons(new JButton[frame.getLaenge()][frame.getBreite()]);
+        frame.getGamePanel().setLayout(new GridLayout(frame.getSpielbrett().getLaenge(), frame.getSpielbrett().getBreite()));
+        frame.setFractionbuttons(new JButton[frame.getSpielbrett().getLaenge()][frame.getSpielbrett().getBreite()]);
         int buttonWidth=75;
         int buttonHeight=60;
 
-        frame.setSpielbrett(ZufallsBruchGenerator.tabelleFuellen(frame.getBreite(),frame.getLaenge()));
-        for(int i = 0;i<frame.getSpielerArray().size();i++)
+        frame.getSpielbrett().setSpielbrett(ZufallsBruchGenerator.tabelleFuellen(frame.getSpielbrett().getBreite(),frame.getSpielbrett().getLaenge()));
+        for(int i = 0;i<frame.getSpielbrett().getSpielerArray().size();i++)
         {
-            generierePosition(frame.getSpielerArray().get(i),i);
-            frame.setElementSpielbrett(frame.getSpielerArray().get(i),frame.getSpielerArray().get(i).getPosX(),frame.getSpielerArray().get(i).getPosY());
+            generierePosition(frame.getSpielbrett().getSpielerArray().get(i),i);
+            frame.getSpielbrett().setElementSpielbrett(frame.getSpielbrett().getSpielerArray().get(i),frame.getSpielbrett().getSpielerArray().get(i).getPosX(),frame.getSpielbrett().getSpielerArray().get(i).getPosY());
         }
 
         for(int i=0;i<frame.getFractionbuttons().length;i++)
@@ -141,9 +163,9 @@ public class GameSetup implements ActionListener
         frame.getGameMechanics().updateField();
         //verändert den Frame so, dass die Buttons wie gewollt in der Mitte mit ausreichend Platz liegen und verschiebt den Frame wieder in die Mitte des Bildschirmes
         frame.remove(frame.getGamePanel());
-        frame.setSize(frame.getBreite()*buttonWidth+40,frame.getLaenge()*buttonHeight+60);
+        frame.setSize(frame.getSpielbrett().getBreite()*buttonWidth+40,frame.getSpielbrett().getLaenge()*buttonHeight+60);
         frame.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2-frame.getWidth()/2, Toolkit.getDefaultToolkit().getScreenSize().height/2-frame.getHeight()/2);
-        frame.getGamePanel().setBounds(10,10,frame.getBreite()*buttonWidth,frame.getLaenge()*buttonHeight);
+        frame.getGamePanel().setBounds(10,10,frame.getSpielbrett().getBreite()*buttonWidth,frame.getSpielbrett().getLaenge()*buttonHeight);
         frame.getInputPanel().setBounds(10,frame.getGamePanel().getHeight()+15,frame.getGamePanel().getWidth(),frame.getHeight()-(frame.getGamePanel().getHeight()+60));
         frame.add(frame.getGamePanel());
         frame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -153,7 +175,7 @@ public class GameSetup implements ActionListener
             public void windowClosing(WindowEvent e) {
                 frame.dispose();
                 frame.getGameMechanics().getArrowButton().dispose();
-                new FinishFrame(frame.getSpielerArray());
+                new FinishFrame(frame.getSpielbrett().getSpielerArray());
             }
         });
         frame.getGameMechanics().setArrowActive();
@@ -165,8 +187,8 @@ public class GameSetup implements ActionListener
         // dies geschieht in einem 8x8 Rahmen.
         // dieser Rahmen wird innerhalb des Spielbretts "in die Mitte geschoben"
         // deswegen Laenge und Breite durch 2, mit derer der Rahmen verschoben wird
-        int yFaktor=(frame.getBreite()-8)/2;
-        int xFaktor=(frame.getLaenge()-8)/2;
+        int yFaktor=(frame.getSpielbrett().getBreite()-8)/2;
+        int xFaktor=(frame.getSpielbrett().getLaenge()-8)/2;
         switch(x) {
             case 0: spieler.setPosX(4+xFaktor); spieler.setPosY(3+yFaktor);
                 break;
