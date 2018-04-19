@@ -96,6 +96,7 @@ public class GameSetup implements ActionListener
                 frame.getSpielbrett().getSpielerArray().add(new Spieler(input,0,0,frame.getPicturePath().getText()));
                 frame.getInsertTextField().setText("");
                 frame.getInsertLabel().setText("Gebe den 2. Spielernamen ein");
+                //Standard-Bild für Spieler 2
                 frame.getPicturePath().setText(System.getProperty("java.class.path")+"/derFreundlicheFranz.png");
                 return;
             }
@@ -106,6 +107,7 @@ public class GameSetup implements ActionListener
         {
             count = Integer.parseInt(inputtext.substring(9,10));
             frame.getSpielbrett().getSpielerArray().add(new Spieler(input, 0,0,frame.getPicturePath().getText()));
+            //Standardbilder für folgende Spieler, zu ändern im String names
             frame.getPicturePath().setText(System.getProperty("java.class.path")+((names.length>count-2)?names[count-2]:"fff"));
             frame.getInsertTextField().setText("");
             if(count==8)
@@ -126,7 +128,7 @@ public class GameSetup implements ActionListener
         }
         frame.getInsertLabel().setText("Gebe den "+(++count)+". Spielernamen ein");
     }
-    private void setupGame() {
+    protected void setupGame() {
         //Erstellt das Spielfeld und synchronisiert erstmals jenes mit den Buttons
         frame.getGamePanel().setLayout(new GridLayout(frame.getSpielbrett().getLaenge(), frame.getSpielbrett().getBreite()));
         frame.setFractionbuttons(new JButton[frame.getSpielbrett().getLaenge()][frame.getSpielbrett().getBreite()]);
@@ -144,7 +146,6 @@ public class GameSetup implements ActionListener
         {
             for(int j=0;j<frame.getFractionbuttons()[i].length;j++) {
                 frame.getFractionbuttons()[i][j] = new JButton();
-                frame.getFractionbuttons()[i][j].setMargin(new Insets(0,0,0,0));
                 frame.getFractionbuttons()[i][j].setBorder(null);
                 frame.getGamePanel().add(frame.getFractionbuttons()[i][j]);
                 frame.getFractionbuttons()[i][j].addFocusListener(new FocusListener() {

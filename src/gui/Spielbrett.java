@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * version: 1.0
  */
 public class Spielbrett implements Serializable{
+    //Diese Klasse speichert die aktuellen Spieler, das Spielbrett (bestehend aus Fractions und Spielern)und die Größe und Breite des Spiels
     private ArrayList<Spieler> spielerArray;
     private ArrayList<ArrayList<Object>> spielbrett;
     private int laenge;

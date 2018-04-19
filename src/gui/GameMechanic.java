@@ -219,12 +219,14 @@ public class GameMechanic implements KeyListener, ActionListener
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //Diese Methode reagiert auf die Benutztung der jMenuItems "Speichern" und "Laden"
         if(e.getSource()instanceof JMenuItem&&((JMenuItem) e.getSource()).getText().equals("Speichern")) {
             JFileChooser c= new JFileChooser();
             c.setFileSelectionMode(JFileChooser.FILES_ONLY);
             int rVal=c.showSaveDialog(frame);
             if(rVal==JFileChooser.APPROVE_OPTION)
             {
+                //Erstellung der ausgewählten Ordner, falls nötig
                 File f = c.getCurrentDirectory();
                 f.mkdirs();
                 f=c.getSelectedFile();
@@ -260,8 +262,9 @@ public class GameMechanic implements KeyListener, ActionListener
             }
         }
     }
-    private void reloadGame(){
-
+    protected void setPlayerToTurn(int playerToTurn){this.playerToTurn=playerToTurn;}
+    protected void reloadGame(){
+        //Diese Methode überschreibt die Größe des Spielfeldes und alle zuvor gesetzten Buttons, sie ist ähnlich er setupMethode aus GameSetup
 
         Spielbrett brett = frame.getSpielbrett();
         System.out.println(brett.getSpielerArray().size());
@@ -335,6 +338,8 @@ class ColorPlayer extends Thread {
     }
     public void setPlayer(JButton p)
     {
+        if(player!=null)
+            player.setBackground(Color.WHITE);
         player=p;
     }
 

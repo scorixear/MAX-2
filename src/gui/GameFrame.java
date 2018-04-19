@@ -13,25 +13,26 @@ public class GameFrame extends JFrame {
     private JPanel gamePanel;                                                                                           //enthält die Buttons über ein GridLayout
     private JPanel inputPanel;                                                                                          //enthält Label und Inputtextfield
     private JTextField insertTextField;
-    private JTextField picturePath;
+    private JTextField picturePath;                                                                                     //Die Picture-Komponenten werden zum Festlegen der Profilbilder genutzt
     private JButton pictureButton;
     private JLabel insertLabel;                                                                                         //gibt Informationen über erwarteten Input
     private GameMechanic gameMechanics;
-    private Spielbrett spielbrett;
+    private Spielbrett spielbrett;                                                                                      //Die Spielbrett-Variable enthält alle Informationen zum aktuellen Spiel
     private JMenuBar mb;
+    GameSetup setup;
 
     //Anzahl an Spalten des Spielfeldes
     GameFrame(){
         setTitle("Max-GUI");
         setLayout(null);
         spielbrett=new Spielbrett();
-        GameSetup setup = new GameSetup(this);
+        setup = new GameSetup(this);
 
         insertLabel=new JLabel("Gebe die Laenge des Spielfeldes an");
         insertTextField=new JTextField("");
         insertTextField.setHorizontalAlignment(JTextField.CENTER);
 
-        picturePath=new JTextField(System.getProperty("java.class.path")+"/beleidigterFranz.png");
+        picturePath=new JTextField(System.getProperty("java.class.path")+"/beleidigterFranz.png");                      //standardmäßiges Bild beleidigterFranz wird ausgewählt
         pictureButton=new JButton("Durchsuchen...");
         pictureButton.addActionListener(setup);
 
@@ -62,6 +63,8 @@ public class GameFrame extends JFrame {
 
         gamePanel = new JPanel();
     }
+
+    protected GameSetup getSetup(){return setup;}
 
     protected JMenuBar getMb(){return mb;}
 

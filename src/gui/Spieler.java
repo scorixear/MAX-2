@@ -35,7 +35,7 @@ public class Spieler implements Serializable{
 		Image dimg;
 		try {
 			BufferedImage image = ImageIO.read(new File(path));
-			dimg = image.getScaledInstance(80,60, Image.SCALE_SMOOTH);
+			dimg = image.getScaledInstance(90,60, Image.SCALE_SMOOTH);
 		} catch (Exception e) {
 			System.out.println("notfound");
 			return null;
