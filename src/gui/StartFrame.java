@@ -65,7 +65,10 @@ public class StartFrame extends JFrame implements ActionListener {
                 } catch (IOException | ClassNotFoundException e1) {
                     e1.printStackTrace();
                 }
-
+            }
+            else
+            {
+                frame.dispose();
             }
         }
     }
