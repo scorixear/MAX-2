@@ -255,6 +255,7 @@ public class GameMechanic implements KeyListener, ActionListener
                     frame.setSpielbrett((Spielbrett)os.readObject());
                     playerToTurn=os.readInt();
                     reloadGame();
+                    os.close();
                 } catch (IOException | ClassNotFoundException e1) {
                     e1.printStackTrace();
                 }

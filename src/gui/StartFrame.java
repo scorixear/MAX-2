@@ -62,6 +62,7 @@ public class StartFrame extends JFrame implements ActionListener {
                     frame.setSpielbrett(brett);
                     frame.getGameMechanics().reloadGame();
                     frame.remove(frame.getInputPanel());
+                    os.close();
                 } catch (IOException | ClassNotFoundException e1) {
                     e1.printStackTrace();
                 }
